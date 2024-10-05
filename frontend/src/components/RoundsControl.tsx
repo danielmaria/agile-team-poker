@@ -114,7 +114,7 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
                   key={subject.id}
                   p={2}
                   display="flex"
-                  alignItems="center"
+                  alignItems="flex-start"
                   justifyContent="space-between"
                 >
                   <Typography
@@ -122,9 +122,10 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
                       whiteSpace: "normal",
                       wordBreak: "break-word",
                       maxWidth: "70%",
+                      textAlign: "left",
                     }}
                   >
-                    {subject.name}
+                    {subject.id}. {subject.name}
                   </Typography>
                   <Button
                     variant={
