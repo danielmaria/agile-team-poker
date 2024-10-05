@@ -19,6 +19,7 @@ import MoreSpeedDial from "./MoreSpeedDial";
 import { ApiService } from "../services/ApiService";
 import { SubjectsService } from "../services/SubjectsService";
 import Timer from "./Timer";
+import logo from "../assets/logo.png";
 
 interface DashboardProps {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -132,6 +133,17 @@ const Dashboard: React.FC<DashboardProps> = ({ setIsAuthenticated }) => {
     <Box>
       <AppBar position="static">
         <Toolbar>
+          <Box
+            component="img"
+            sx={{
+              width: "1.5em",
+              marginInline: "auto",
+              marginRight: 1,
+              fontSize: "1.25rem",
+              marginBottom: "5px",
+            }}
+            src={logo}
+          />
           <Typography
             variant="h6"
             sx={{
