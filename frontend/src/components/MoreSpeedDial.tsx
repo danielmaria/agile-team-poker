@@ -136,7 +136,7 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
       text: [
         "The game has a maximum of 20 topics to be discussed, but the session can end earlier.",
         "Any member of the room can generate a report to see the general situation of the team.",
-        "Taking into account the averages, it is possible to verify which points should be given more attention and which are good at the moment.",
+        "Taking into account the averages, it is possible to verify which pontos should be given mais attention and which are good at the moment.",
         "Issues that players have a negative outlook on receive a warning icon in the report.",
       ],
       image: step6Image,
@@ -185,9 +185,18 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
       >
         <DialogTitle>{"Thank you for your support!"}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Your contribution is greatly appreciated!
-          </DialogContentText>
+          <iframe
+            id="kofiframe"
+            src="https://ko-fi.com/danielmariadasilva/?hidefeed=true&widget=true&embed=true&preview=true"
+            style={{
+              border: "none",
+              width: "100%",
+              padding: "4px",
+              background: "#f9f9f9",
+            }}
+            height="580"
+            title="danielmariadasilva"
+          ></iframe>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseCoffee}>Close</Button>
