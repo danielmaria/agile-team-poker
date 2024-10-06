@@ -145,7 +145,7 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
 
   return (
     <>
-      <Box sx={{ height: 330, flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1 }}>
         <Backdrop open={openSpeedDial} />
         <SpeedDial
           ariaLabel="SpeedDial tooltip"

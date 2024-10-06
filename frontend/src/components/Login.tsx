@@ -151,7 +151,7 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        height="100vh"
+        minHeight="100vh"
       >
         <Box
           width={300}
