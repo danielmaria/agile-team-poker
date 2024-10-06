@@ -23,6 +23,7 @@ import sadIcon from "../assets/cards/emotion-sad.png";
 import upIcon from "../assets/cards/up.png";
 import downIcon from "../assets/cards/down.png";
 import neutralFutureIcon from "../assets/cards/neutral.png";
+import html2pdf from "html2pdf.js";
 
 interface Move {
   future: "up" | "down" | "neutral";
@@ -52,7 +53,6 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
   );
   const [expandedSubject, setExpandedSubject] = useState<number | null>(null);
 
-  // Function to handle opening the dialog and fetching the data
   useEffect(() => {
     const processRoundsData = (data: any[]): Record<string, SubjectData> => {
       const subjectsData: Record<string, SubjectData> = {};
@@ -69,7 +69,6 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
             subjectsData[subjectId] = { name: subjectName, moves: {} };
           }
 
-          // Store the most recent move for each player
           moves.forEach((move: any) => {
             if (move && move.playerName && move.future && move.mood) {
               subjectsData[subjectId].moves[move.playerName] = {
@@ -81,7 +80,6 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
         }
       });
 
-      // Filter out subjects with no moves
       Object.keys(subjectsData).forEach((key) => {
         if (Object.keys(subjectsData[key].moves).length === 0) {
           delete subjectsData[key];
@@ -101,12 +99,10 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
     fetchData();
   }, [roomHash, events, subjects]);
 
-  // Function to toggle the collapse for each subject
   const toggleSubject = (subjectId: number) => {
     setExpandedSubject(expandedSubject === subjectId ? null : subjectId);
   };
 
-  // Calculate percentages for each subject's moves
   const calculateMovePercentages = (moves: Record<string, Move>) => {
     const totalMoves = Object.keys(moves).length;
     const moodCounts: Record<string, number> = { happy: 0, neutral: 0, sad: 0 };
@@ -137,7 +133,6 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
     };
   };
 
-  // Map mood to icons
   const moodIcon = {
     happy: happyIcon,
     neutral: neutralIcon,
@@ -150,37 +145,231 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
     neutral: neutralFutureIcon,
   };
 
+  const generatePdf = () => {
+    // Temporarily show the hidden content for PDF generation
+    const hiddenContent = document.getElementById("report-hidden-content");
+    const originalContent = document.getElementById("report-content");
+
+    if (hiddenContent && originalContent) {
+      hiddenContent.style.display = "block"; // Show hidden content
+      originalContent.style.display = "none"; // Hide original content
+
+      setTimeout(() => {
+        const element = hiddenContent;
+        html2pdf()
+          .from(element)
+          .save("report.pdf")
+          .then(() => {
+            // Revert the visibility changes
+            hiddenContent.style.display = "none";
+            originalContent.style.display = "block";
+          });
+      }, 500);
+    }
+  };
+
   return (
     <Dialog open={true} onClose={onClose} maxWidth="lg" fullWidth>
       <DialogTitle>Game Report</DialogTitle>
       <DialogContent>
-        {Object.entries(subjectData).map(([subjectId, subject]) => {
-          const { highestMood, highestFuture } = calculateMovePercentages(
-            subject.moves
-          );
-          return (
-            <Box
-              key={subjectId}
-              mb={3}
-              p={2}
-              border={1}
-              borderColor="grey.300"
-              borderRadius={2}
-            >
+        {/* Original content with collapses */}
+        <div id="report-content">
+          {Object.entries(subjectData).map(([subjectId, subject]) => {
+            const { highestMood, highestFuture } = calculateMovePercentages(
+              subject.moves
+            );
+            return (
               <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
+                key={subjectId}
+                mb={3}
+                p={2}
+                border={1}
+                borderColor="grey.300"
+                borderRadius={2}
+              >
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Typography variant="h6">
+                    {(highestFuture === "down" ||
+                      (highestFuture === "neutral" &&
+                        highestFuture === "neutral")) && (
+                      <Tooltip title="This issue may be a problem in future sprints.">
+                        <span style={{ marginRight: 10 }}>⚠️</span>
+                      </Tooltip>
+                    )}
+
+                    {subject.name}
+                    <img
+                      src={moodIcon[highestMood as keyof typeof moodIcon]}
+                      alt={highestMood}
+                      style={{ width: 20, height: 20, marginLeft: 10 }}
+                    />
+                    <img
+                      src={futureIcon[highestFuture as keyof typeof futureIcon]}
+                      alt={highestFuture}
+                      style={{ width: 20, height: 20, marginLeft: 10 }}
+                    />
+                  </Typography>
+                  <IconButton onClick={() => toggleSubject(Number(subjectId))}>
+                    {expandedSubject === Number(subjectId) ? (
+                      <ExpandLessIcon />
+                    ) : (
+                      <ExpandMoreIcon />
+                    )}
+                  </IconButton>
+                </Box>
+                <Collapse
+                  in={expandedSubject === Number(subjectId)}
+                  timeout="auto"
+                  unmountOnExit
+                >
+                  <Box display="flex" justifyContent="space-between" mt={2}>
+                    <Box flex={1} mr={3}>
+                      <Table size="small">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Mood</TableCell>
+                            <TableCell>Future</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {Object.entries(subject.moves).map(
+                            ([playerName, move]) => (
+                              <TableRow key={playerName}>
+                                <TableCell>{playerName}</TableCell>
+                                <TableCell>
+                                  <img
+                                    src={moodIcon[move.mood]}
+                                    alt={move.mood}
+                                    style={{ width: 20, height: 20 }}
+                                  />
+                                </TableCell>
+                                <TableCell>
+                                  <img
+                                    src={futureIcon[move.future]}
+                                    alt={move.future}
+                                    style={{ width: 20, height: 20 }}
+                                  />
+                                </TableCell>
+                              </TableRow>
+                            )
+                          )}
+                        </TableBody>
+                      </Table>
+                    </Box>
+
+                    <Box
+                      flex={1}
+                      ml={3}
+                      display="flex"
+                      justifyContent="space-between"
+                    >
+                      <Box flex={1} mr={2}>
+                        <Table size="small">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Mood Percentages</TableCell>
+                              <TableCell>Value</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <TableRow>
+                              <TableCell>Happy</TableCell>
+                              <TableCell>
+                                {calculateMovePercentages(
+                                  subject.moves
+                                ).moodPercentages.happy.toFixed(2)}
+                                %
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Neutral</TableCell>
+                              <TableCell>
+                                {calculateMovePercentages(
+                                  subject.moves
+                                ).moodPercentages.neutral.toFixed(2)}
+                                %
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Sad</TableCell>
+                              <TableCell>
+                                {calculateMovePercentages(
+                                  subject.moves
+                                ).moodPercentages.sad.toFixed(2)}
+                                %
+                              </TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </Box>
+
+                      <Box flex={1} ml={2}>
+                        <Table size="small">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Future Percentages</TableCell>
+                              <TableCell>Value</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <TableRow>
+                              <TableCell>Up</TableCell>
+                              <TableCell>
+                                {calculateMovePercentages(
+                                  subject.moves
+                                ).futurePercentages.up.toFixed(2)}
+                                %
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Neutral</TableCell>
+                              <TableCell>
+                                {calculateMovePercentages(
+                                  subject.moves
+                                ).futurePercentages.neutral.toFixed(2)}
+                                %
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Down</TableCell>
+                              <TableCell>
+                                {calculateMovePercentages(
+                                  subject.moves
+                                ).futurePercentages.down.toFixed(2)}
+                                %
+                              </TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Collapse>
+              </Box>
+            );
+          })}
+        </div>
+
+        <div id="report-hidden-content" style={{ display: "none" }}>
+          {Object.entries(subjectData).map(([subjectId, subject]) => {
+            const { highestMood, highestFuture } = calculateMovePercentages(
+              subject.moves
+            );
+            return (
+              <Box
+                key={subjectId}
+                mb={3}
+                p={2}
+                border={1}
+                borderColor="grey.300"
+                borderRadius={2}
               >
                 <Typography variant="h6">
-                  {(highestFuture === "down" ||
-                    (highestFuture === "neutral" &&
-                      highestFuture === "neutral")) && (
-                    <Tooltip title="This issue may be a problem in future sprints.">
-                      <span style={{ marginRight: 10 }}>⚠️</span>
-                    </Tooltip>
-                  )}
-
                   {subject.name}
                   <img
                     src={moodIcon[highestMood as keyof typeof moodIcon]}
@@ -193,21 +382,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                     style={{ width: 20, height: 20, marginLeft: 10 }}
                   />
                 </Typography>
-                <IconButton onClick={() => toggleSubject(Number(subjectId))}>
-                  {expandedSubject === Number(subjectId) ? (
-                    <ExpandLessIcon />
-                  ) : (
-                    <ExpandMoreIcon />
-                  )}
-                </IconButton>
-              </Box>
-              <Collapse
-                in={expandedSubject === Number(subjectId)}
-                timeout="auto"
-                unmountOnExit
-              >
                 <Box display="flex" justifyContent="space-between" mt={2}>
-                  {/* Tabela de Jogadores e Ações */}
                   <Box flex={1} mr={3}>
                     <Table size="small">
                       <TableHead>
@@ -243,14 +418,12 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                     </Table>
                   </Box>
 
-                  {/* Mood e Future Percentages em formato de Tabela */}
                   <Box
                     flex={1}
                     ml={3}
                     display="flex"
                     justifyContent="space-between"
                   >
-                    {/* Mood Percentages */}
                     <Box flex={1} mr={2}>
                       <Table size="small">
                         <TableHead>
@@ -265,7 +438,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                             <TableCell>
                               {calculateMovePercentages(
                                 subject.moves
-                              ).moodPercentages.happy.toFixed(0)}
+                              ).moodPercentages.happy.toFixed(2)}
                               %
                             </TableCell>
                           </TableRow>
@@ -274,7 +447,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                             <TableCell>
                               {calculateMovePercentages(
                                 subject.moves
-                              ).moodPercentages.neutral.toFixed(0)}
+                              ).moodPercentages.neutral.toFixed(2)}
                               %
                             </TableCell>
                           </TableRow>
@@ -283,7 +456,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                             <TableCell>
                               {calculateMovePercentages(
                                 subject.moves
-                              ).moodPercentages.sad.toFixed(0)}
+                              ).moodPercentages.sad.toFixed(2)}
                               %
                             </TableCell>
                           </TableRow>
@@ -291,7 +464,6 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                       </Table>
                     </Box>
 
-                    {/* Future Percentages */}
                     <Box flex={1} ml={2}>
                       <Table size="small">
                         <TableHead>
@@ -306,16 +478,7 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                             <TableCell>
                               {calculateMovePercentages(
                                 subject.moves
-                              ).futurePercentages.up.toFixed(0)}
-                              %
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>Down</TableCell>
-                            <TableCell>
-                              {calculateMovePercentages(
-                                subject.moves
-                              ).futurePercentages.down.toFixed(0)}
+                              ).futurePercentages.up.toFixed(2)}
                               %
                             </TableCell>
                           </TableRow>
@@ -324,7 +487,16 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                             <TableCell>
                               {calculateMovePercentages(
                                 subject.moves
-                              ).futurePercentages.neutral.toFixed(0)}
+                              ).futurePercentages.neutral.toFixed(2)}
+                              %
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>Down</TableCell>
+                            <TableCell>
+                              {calculateMovePercentages(
+                                subject.moves
+                              ).futurePercentages.down.toFixed(2)}
                               %
                             </TableCell>
                           </TableRow>
@@ -333,14 +505,18 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                     </Box>
                   </Box>
                 </Box>
-              </Collapse>
-            </Box>
-          );
-        })}
+              </Box>
+            );
+          })}
+        </div>
 
-        <Button onClick={onClose} style={{ float: "right" }}>
-          Close
-        </Button>
+        <Box mt={3} display="flex" justifyContent="flex-end">
+          <Button onClick={generatePdf}>Generate PDF</Button>
+
+          <Button onClick={onClose} style={{ float: "right" }}>
+            Close
+          </Button>
+        </Box>
       </DialogContent>
     </Dialog>
   );
