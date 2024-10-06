@@ -28,6 +28,7 @@ frontend/.env
 frontend/.vscode
 
 ## Backend
+backend/.gitignore
 backend/.vercel
 backend/node_modules
 # Ignore the Firebase service account file
