@@ -131,7 +131,10 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
               backgroundColor: "white",
               border: "1px solid rgba(0, 0, 0, 0.12)",
               p: 2,
-              maxHeight: "33vh",
+              maxHeight: {
+                xs: "66vh",
+                xl: "46vh",
+              },
               overflowY: "auto",
             }}
           >
@@ -149,8 +152,18 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
                     onClick={() => setSelectedEmotion(emotion)}
                     sx={{
                       cursor: "pointer",
-                      width: "5em",
-                      height: "8em",
+                      width: {
+                        xs: "4em",
+                        xl: "5em",
+                      },
+                      height: {
+                        xs: "6em",
+                        xl: "8em",
+                      },
+                      margin: {
+                        xs: "5px",
+                        xl: "auto",
+                      },
                       border: "1px solid",
                       borderColor: "black",
                       borderRadius: "8px",
@@ -159,9 +172,11 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
                       "&:hover": {
                         transform: "scale(1.1)",
                       },
+                      transform:
+                        selectedEmotion === emotion ? "scale(1.1)" : "",
                       boxShadow:
                         selectedEmotion === emotion
-                          ? "0px 0px 10px rgba(0, 0, 255, 0.6)"
+                          ? "0px 0px 10px rgb(24 118 210 / 95%)"
                           : "none",
                       ...(selectedEmotion === emotion && {
                         animation: "borderAnimation 2s linear infinite",
@@ -196,8 +211,18 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
                     onClick={() => setSelectedDirection(direction)}
                     sx={{
                       cursor: "pointer",
-                      width: "5em",
-                      height: "8em",
+                      width: {
+                        xs: "4em",
+                        xl: "5em",
+                      },
+                      height: {
+                        xs: "6em",
+                        xl: "8em",
+                      },
+                      margin: {
+                        xs: "5px",
+                        xl: "auto",
+                      },
                       border: "1px solid",
                       borderColor: "black",
                       borderRadius: "8px",
@@ -206,9 +231,11 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
                       "&:hover": {
                         transform: "scale(1.1)",
                       },
+                      transform:
+                        selectedDirection === direction ? "scale(1.1)" : "",
                       boxShadow:
                         selectedDirection === direction
-                          ? "0px 0px 10px rgba(0, 0, 255, 0.6)"
+                          ? "0px 0px 10px rgb(24 118 210 / 95%)"
                           : "none",
                       ...(selectedDirection === direction && {
                         animation: "borderAnimation 2s linear infinite",

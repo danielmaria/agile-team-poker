@@ -155,7 +155,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setIsAuthenticated }) => {
             }}
           >
             Agile team poker - Share room code
-            <Tooltip title="Share room">
+            <Tooltip title="Clip to copy invite link">
               <IconButton onClick={handleShareRoom} color="primary">
                 <ShareIcon sx={{ color: "white" }} />
               </IconButton>
@@ -183,7 +183,10 @@ const Dashboard: React.FC<DashboardProps> = ({ setIsAuthenticated }) => {
           justifyContent: "center",
           alignItems: "flex-end",
           width: "100%",
-          padding: "0 16px",
+          padding: {
+            xs: "0",
+            xl: "0 16px",
+          },
         }}
       >
         {user.isOrganizer && (

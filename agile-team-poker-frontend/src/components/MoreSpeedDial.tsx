@@ -16,6 +16,8 @@ import {
   SpeedDial,
   SpeedDialAction,
   SpeedDialIcon,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { EventData } from "./PlayerEvents";
 import step1Image from "../assets/help/step1.png";
@@ -84,6 +86,9 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
     setInfoPage(0);
   };
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const infoPages = [
     {
       title: "Step 1: Creating a Room",
@@ -149,14 +154,33 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
         <Backdrop open={openSpeedDial} />
         <SpeedDial
           ariaLabel="SpeedDial tooltip"
-          sx={{ position: "absolute", bottom: 60, right: 60 }}
+          sx={{
+            position: "absolute",
+            top: {
+              xs: !user ? 25 : 60,
+            },
+            left: {
+              xs: 10,
+              xl: "auto",
+            },
+            bottom: {
+              xl: 60,
+            },
+            right: {
+              xl: 60,
+            },
+          }}
           icon={<SpeedDialIcon />}
           onClose={handleCloseSpeedDial}
           onOpen={handleOpenSpeedDial}
           open={openSpeedDial}
+          direction={isMobile ? "down" : "up"}
         >
           {actions.map((action) => {
-            if (action.key === "report" && !user) {
+            if (
+              (action.key === "report" && !user) ||
+              (action.key === "report" && isMobile)
+            ) {
               return null;
             }
 

@@ -82,7 +82,10 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
       <Box
         sx={{
           bottom: 0,
-          width: "30%",
+          width: {
+            xs: "50%",
+            xl: "23%",
+          },
           textAlign: "center",
           transition: "bottom 0.3s",
         }}
@@ -104,7 +107,10 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
               backgroundColor: "white",
               border: "1px solid rgba(0, 0, 0, 0.12)",
               p: 2,
-              maxHeight: "33vh",
+              maxHeight: {
+                xs: "66vh",
+                xl: "46vh",
+              },
               overflowY: "auto",
             }}
           >
@@ -116,13 +122,21 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
                   display="flex"
                   alignItems="flex-start"
                   justifyContent="space-between"
+                  flexDirection={{
+                    xs: "column", // Em dispositivos móveis, o botão ficará abaixo do texto
+                    sm: "row", // Em telas maiores, o botão ficará ao lado do texto
+                  }}
                 >
                   <Typography
                     sx={{
                       whiteSpace: "normal",
                       wordBreak: "break-word",
-                      maxWidth: "70%",
+                      maxWidth: {
+                        xs: "100%", // Em dispositivos móveis, o texto ocupará toda a largura
+                        sm: "70%", // Em telas maiores, limitar a largura do texto a 70%
+                      },
                       textAlign: "left",
+                      mb: { xs: 2, sm: 0 }, // Margem inferior para separar o botão em telas pequenas
                     }}
                   >
                     {subject.id}. {subject.name}
