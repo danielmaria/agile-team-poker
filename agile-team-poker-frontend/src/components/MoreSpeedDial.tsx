@@ -177,10 +177,7 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
           direction={isMobile ? "down" : "up"}
         >
           {actions.map((action) => {
-            if (
-              (action.key === "report" && !user) ||
-              (action.key === "report" && isMobile)
-            ) {
+            if (action.key === "report" && !user) {
               return null;
             }
 
@@ -255,8 +252,8 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
             />
           )}
           <DialogContentText>
-            {infoPages[infoPage].text.map((paragraph) => (
-              <li>{paragraph}</li>
+            {infoPages[infoPage].text.map((paragraph, index) => (
+              <li key={index}>{paragraph}</li>
             ))}
           </DialogContentText>
         </DialogContent>

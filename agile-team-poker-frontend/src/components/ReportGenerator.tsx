@@ -14,6 +14,8 @@ import {
   IconButton,
   Button,
   Tooltip,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -54,6 +56,9 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
     {}
   );
   const [expandedSubject, setExpandedSubject] = useState<number | null>(null);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     const processRoundsData = (data: any[]): Record<string, SubjectData> => {
@@ -208,8 +213,8 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                     src={getMoodIcon(highestMood)}
                     alt={highestMood}
                     style={{
-                      width: 20,
-                      height: 20,
+                      width: 25,
+                      height: 25,
                       marginRight: 10,
                       transform: getRotation(highestFuture),
                     }}
@@ -265,92 +270,94 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                     </Table>
                   </Box>
 
-                  <Box
-                    flex={1}
-                    ml={3}
-                    display="flex"
-                    justifyContent="space-between"
-                  >
-                    <Box flex={1} mr={2}>
-                      <Table size="small">
-                        <TableHead>
-                          <TableRow>
-                            <TableCell>Mood Percentages</TableCell>
-                            <TableCell>Value</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          <TableRow>
-                            <TableCell>Happy</TableCell>
-                            <TableCell>
-                              {calculateMovePercentages(
-                                subject.moves
-                              ).moodPercentages.happy.toFixed(0)}
-                              %
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>Neutral</TableCell>
-                            <TableCell>
-                              {calculateMovePercentages(
-                                subject.moves
-                              ).moodPercentages.neutral.toFixed(0)}
-                              %
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>Sad</TableCell>
-                            <TableCell>
-                              {calculateMovePercentages(
-                                subject.moves
-                              ).moodPercentages.sad.toFixed(0)}
-                              %
-                            </TableCell>
-                          </TableRow>
-                        </TableBody>
-                      </Table>
-                    </Box>
+                  {!isMobile && (
+                    <Box
+                      flex={1}
+                      ml={3}
+                      display="flex"
+                      justifyContent="space-between"
+                    >
+                      <Box flex={1} mr={2}>
+                        <Table size="small">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Mood Percentages</TableCell>
+                              <TableCell>Value</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <TableRow>
+                              <TableCell>Happy</TableCell>
+                              <TableCell>
+                                {calculateMovePercentages(
+                                  subject.moves
+                                ).moodPercentages.happy.toFixed(0)}
+                                %
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Neutral</TableCell>
+                              <TableCell>
+                                {calculateMovePercentages(
+                                  subject.moves
+                                ).moodPercentages.neutral.toFixed(0)}
+                                %
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Sad</TableCell>
+                              <TableCell>
+                                {calculateMovePercentages(
+                                  subject.moves
+                                ).moodPercentages.sad.toFixed(0)}
+                                %
+                              </TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </Box>
 
-                    <Box flex={1} ml={2}>
-                      <Table size="small">
-                        <TableHead>
-                          <TableRow>
-                            <TableCell>Future Percentages</TableCell>
-                            <TableCell>Value</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          <TableRow>
-                            <TableCell>Up</TableCell>
-                            <TableCell>
-                              {calculateMovePercentages(
-                                subject.moves
-                              ).futurePercentages.up.toFixed(0)}
-                              %
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>Down</TableCell>
-                            <TableCell>
-                              {calculateMovePercentages(
-                                subject.moves
-                              ).futurePercentages.down.toFixed(0)}
-                              %
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>Neutral</TableCell>
-                            <TableCell>
-                              {calculateMovePercentages(
-                                subject.moves
-                              ).futurePercentages.neutral.toFixed(0)}
-                              %
-                            </TableCell>
-                          </TableRow>
-                        </TableBody>
-                      </Table>
+                      <Box flex={1} ml={2}>
+                        <Table size="small">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Future Percentages</TableCell>
+                              <TableCell>Value</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <TableRow>
+                              <TableCell>Up</TableCell>
+                              <TableCell>
+                                {calculateMovePercentages(
+                                  subject.moves
+                                ).futurePercentages.up.toFixed(0)}
+                                %
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Down</TableCell>
+                              <TableCell>
+                                {calculateMovePercentages(
+                                  subject.moves
+                                ).futurePercentages.down.toFixed(0)}
+                                %
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Neutral</TableCell>
+                              <TableCell>
+                                {calculateMovePercentages(
+                                  subject.moves
+                                ).futurePercentages.neutral.toFixed(0)}
+                                %
+                              </TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </Box>
                     </Box>
-                  </Box>
+                  )}
                 </Box>
               </Collapse>
             </Box>
