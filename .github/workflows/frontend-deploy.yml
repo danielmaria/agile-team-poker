@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "./agile-team-poker-frontend/**"
+      - "agile-team-poker-frontend/**"
   create:
     tags:
       - "*"
