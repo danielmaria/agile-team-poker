@@ -230,9 +230,11 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
               src={infoPages[infoPage].image}
             />
           )}
-          {infoPages[infoPage].text.map((paragraph, index) => (
-            <DialogContentText key={index}>{paragraph}</DialogContentText>
-          ))}
+          <DialogContentText>
+            {infoPages[infoPage].text.map((paragraph) => (
+              <li>{paragraph}</li>
+            ))}
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           {infoPage > 0 && (

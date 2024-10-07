@@ -23,6 +23,9 @@ import sadIcon from "../assets/cards/emotion-sad.png";
 import upIcon from "../assets/cards/up.png";
 import downIcon from "../assets/cards/down.png";
 import neutralFutureIcon from "../assets/cards/neutral.png";
+import redIcon from "../assets/results/red.png";
+import yellowIcon from "../assets/results/yellow.png";
+import greenIcon from "../assets/results/green.png";
 
 interface Move {
   future: "up" | "down" | "neutral";
@@ -52,7 +55,6 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
   );
   const [expandedSubject, setExpandedSubject] = useState<number | null>(null);
 
-  // Function to handle opening the dialog and fetching the data
   useEffect(() => {
     const processRoundsData = (data: any[]): Record<string, SubjectData> => {
       const subjectsData: Record<string, SubjectData> = {};
@@ -69,7 +71,6 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
             subjectsData[subjectId] = { name: subjectName, moves: {} };
           }
 
-          // Store the most recent move for each player
           moves.forEach((move: any) => {
             if (move && move.playerName && move.future && move.mood) {
               subjectsData[subjectId].moves[move.playerName] = {
@@ -81,7 +82,6 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
         }
       });
 
-      // Filter out subjects with no moves
       Object.keys(subjectsData).forEach((key) => {
         if (Object.keys(subjectsData[key].moves).length === 0) {
           delete subjectsData[key];
@@ -101,12 +101,10 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
     fetchData();
   }, [roomHash, events, subjects]);
 
-  // Function to toggle the collapse for each subject
   const toggleSubject = (subjectId: number) => {
     setExpandedSubject(expandedSubject === subjectId ? null : subjectId);
   };
 
-  // Calculate percentages for each subject's moves
   const calculateMovePercentages = (moves: Record<string, Move>) => {
     const totalMoves = Object.keys(moves).length;
     const moodCounts: Record<string, number> = { happy: 0, neutral: 0, sad: 0 };
@@ -137,7 +135,6 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
     };
   };
 
-  // Map mood to icons
   const moodIcon = {
     happy: happyIcon,
     neutral: neutralIcon,
@@ -148,6 +145,31 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
     up: upIcon,
     down: downIcon,
     neutral: neutralFutureIcon,
+  };
+
+  const getMoodIcon = (mood: string) => {
+    switch (mood) {
+      case "happy":
+        return greenIcon;
+      case "neutral":
+        return yellowIcon;
+      case "sad":
+        return redIcon;
+      default:
+        return "";
+    }
+  };
+
+  const getRotation = (direction: string) => {
+    switch (direction) {
+      case "up":
+        return "rotate(-45deg)";
+      case "down":
+        return "rotate(45deg)";
+      case "neutral":
+      default:
+        return "rotate(0deg)";
+    }
   };
 
   return (
@@ -177,21 +199,22 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                     (highestFuture === "neutral" &&
                       highestFuture === "neutral")) && (
                     <Tooltip title="This issue may be a problem in future sprints.">
-                      <span style={{ marginRight: 10 }}>⚠️</span>
+                      <span style={{ marginRight: 10, cursor: "help" }}>
+                        ⚠️
+                      </span>
                     </Tooltip>
                   )}
-
-                  {subject.name}
                   <img
-                    src={moodIcon[highestMood as keyof typeof moodIcon]}
+                    src={getMoodIcon(highestMood)}
                     alt={highestMood}
-                    style={{ width: 20, height: 20, marginLeft: 10 }}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      marginRight: 10,
+                      transform: getRotation(highestFuture),
+                    }}
                   />
-                  <img
-                    src={futureIcon[highestFuture as keyof typeof futureIcon]}
-                    alt={highestFuture}
-                    style={{ width: 20, height: 20, marginLeft: 10 }}
-                  />
+                  {subject.name}
                 </Typography>
                 <IconButton onClick={() => toggleSubject(Number(subjectId))}>
                   {expandedSubject === Number(subjectId) ? (
@@ -207,7 +230,6 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                 unmountOnExit
               >
                 <Box display="flex" justifyContent="space-between" mt={2}>
-                  {/* Tabela de Jogadores e Ações */}
                   <Box flex={1} mr={3}>
                     <Table size="small">
                       <TableHead>
@@ -243,14 +265,12 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                     </Table>
                   </Box>
 
-                  {/* Mood e Future Percentages em formato de Tabela */}
                   <Box
                     flex={1}
                     ml={3}
                     display="flex"
                     justifyContent="space-between"
                   >
-                    {/* Mood Percentages */}
                     <Box flex={1} mr={2}>
                       <Table size="small">
                         <TableHead>
@@ -291,7 +311,6 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                       </Table>
                     </Box>
 
-                    {/* Future Percentages */}
                     <Box flex={1} ml={2}>
                       <Table size="small">
                         <TableHead>

@@ -2,7 +2,7 @@
   "name": "agile-team-poker",
   "private": true,
   "workspaces": [
-    "frontend",
-    "backend"
+    "agile-team-poker-frontend",
+    "agile-team-poker-backend"
   ]
 }

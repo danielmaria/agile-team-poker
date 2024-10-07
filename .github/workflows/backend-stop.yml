@@ -2,7 +2,7 @@ name: Stop Vercel Project
 
 on:
   schedule:
-    - cron: "0 18 * * *"
+    - cron: "0 18 * * 1-5"
 
 jobs:
   stop-project:
@@ -10,9 +10,9 @@ jobs:
     environment: production
     steps:
       - name: Install Vercel CLI
-        working-directory: backend
+        working-directory: agile-team-poker-backend
         run: npm install -g vercel
 
       - name: Remove Vercel project
-        working-directory: backend
+        working-directory: agile-team-poker-backend
         run: vercel remove agile-team-poker-backend --token=${{ secrets.VERCEL_TOKEN }} -y

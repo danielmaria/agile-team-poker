@@ -5,6 +5,8 @@ import {
   DialogContent,
   Typography,
   Box,
+  DialogActions,
+  Button,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import subject1 from "../assets/subjects/1-organization.jpg";
@@ -54,7 +56,7 @@ const SubjectInfoButton: React.FC<SubjectInfoButtonProps> = ({ subjectId }) => {
     1: {
       name: "The team's delivery planning is organized at an ideal frequency.",
       description:
-        "The team holds regular planning sessions to organize their deliveries. Recently, they adjusted the frequency of their planning meetings to bi-weekly, improving predictability and reducing rework caused by frequent scope changes.",
+        "The team holds regular planning sessions to organize their deliveries. They adjusted the frequency of their planning meetings to a good frequency, improving predictability and reducing rework caused by frequent scope changes.",
       imageUrl: subject1,
       area: "Planning",
     },
@@ -216,6 +218,9 @@ const SubjectInfoButton: React.FC<SubjectInfoButtonProps> = ({ subjectId }) => {
           <Typography align="justify" component="div">
             <p>{subject.description}</p>
           </Typography>
+          <DialogActions>
+            <Button onClick={handleClose}>Close</Button>
+          </DialogActions>
         </DialogContent>
       </Dialog>
     </>

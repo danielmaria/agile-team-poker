@@ -107,7 +107,7 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
           bottom: 0,
           width: {
             xs: "50%",
-            xl: "20%",
+            xl: "23%",
           },
           textAlign: "center",
           zIndex: 1,
@@ -145,21 +145,40 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
                   title={emotionDescriptions[emotion]}
                   placement="top"
                 >
-                  <img
-                    key={emotion}
-                    src={moodIcon[emotion]}
-                    alt={emotion}
+                  <Box
                     onClick={() => setSelectedEmotion(emotion)}
-                    style={{
+                    sx={{
                       cursor: "pointer",
                       width: "5em",
-                      height: "auto",
+                      height: "8em",
+                      border: "1px solid",
+                      borderColor: "black",
+                      borderRadius: "8px",
+                      transition: "transform 0.3s, border-color 0.3s",
+                      position: "relative",
+                      "&:hover": {
+                        transform: "scale(1.1)",
+                      },
                       boxShadow:
                         selectedEmotion === emotion
-                          ? "0px -2px 10px rgba(0, 0, 0, 0.2)"
+                          ? "0px 0px 10px rgba(0, 0, 255, 0.6)"
                           : "none",
+                      ...(selectedEmotion === emotion && {
+                        animation: "borderAnimation 2s linear infinite",
+                      }),
                     }}
-                  />
+                  >
+                    {" "}
+                    <img
+                      src={moodIcon[emotion]}
+                      alt={emotion}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </Box>
                 </Tooltip>
               ))}
             </Box>
@@ -173,21 +192,40 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
                   title={futureVisionDescriptions[direction]}
                   placement="top"
                 >
-                  <img
-                    key={direction}
-                    src={futureIcon[direction]}
-                    alt={direction}
+                  <Box
                     onClick={() => setSelectedDirection(direction)}
-                    style={{
+                    sx={{
                       cursor: "pointer",
                       width: "5em",
-                      height: "auto",
+                      height: "8em",
+                      border: "1px solid",
+                      borderColor: "black",
+                      borderRadius: "8px",
+                      transition: "transform 0.3s, border-color 0.3s",
+                      position: "relative",
+                      "&:hover": {
+                        transform: "scale(1.1)",
+                      },
                       boxShadow:
                         selectedDirection === direction
-                          ? "0px -2px 10px rgba(0, 0, 0, 0.2)"
+                          ? "0px 0px 10px rgba(0, 0, 255, 0.6)"
                           : "none",
+                      ...(selectedDirection === direction && {
+                        animation: "borderAnimation 2s linear infinite",
+                      }),
                     }}
-                  />
+                  >
+                    {" "}
+                    <img
+                      src={futureIcon[direction]}
+                      alt={direction}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </Box>
                 </Tooltip>
               ))}
             </Box>

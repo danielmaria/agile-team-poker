@@ -14,19 +14,19 @@ This monorepo contains both the **frontend** and **backend** of the Agile Team P
 
 ## **Monorepo Architecture**
 
-In this monorepo, both the frontend and backend projects coexist under a single repository. Each project is located in its own directory: `/frontend` for the React app and `/backend` for the Express.js server.
+In this monorepo, both the frontend and backend projects coexist under a single repository. Each project is located in its own directory: `/agile-team-poker-frontend` for the React app and `/agile-team-poker-backend` for the Express.js server.
 
-### **Frontend** (React, Surge):
+### **Frontend** (React, Surge)
 
-- **Path**: `/frontend`
+- **Path**: `/agile-team-poker-frontend`
 - **Deployment**: The frontend is automatically deployed to Surge whenever changes are pushed to the `main` branch or a tag is created. The Surge domain is configured in the deployment pipeline.
 
-### **Backend** (Node.js, Vercel):
+### **Backend** (Node.js, Vercel)
 
-- **Path**: `/backend`
+- **Path**: `/agile-team-poker-backend`
 - **Deployment**: The backend is automatically deployed to Vercel via a scheduled cron job, ensuring it is always up to date without relying on commit triggers.
 
-### **Database**:
+### **Database**
 
 - **Firebase**: The backend uses Firebase for storing data such as session information, player details, and round history.
 
@@ -68,11 +68,11 @@ cd agile-team-poker-monorepo
 
 ```bash {"id":"01J9DYGCBPNKV2GZGX4FZP6Y5C"}
 # Install frontend dependencies
-cd frontend
+cd agile-team-poker-frontend
 npm install
 
 # Install backend dependencies
-cd ../backend
+cd ../agile-team-poker-backend
 npm install
 ```
 
@@ -85,7 +85,7 @@ npm start
 4. In another terminal, run the frontend:
 
 ```bash {"id":"01J9DYGCBPNKV2GZGX4MMDEHBW"}
-cd ../frontend
+cd ../agile-team-poker-frontend
 npm start
 ```
 
@@ -103,23 +103,23 @@ The frontend pipeline is configured to automatically deploy the React applicatio
 The backend pipeline operates on a **cron schedule**:
 
 - **Deploy to Vercel**: The backend is deployed every weekday at 09:00 UTC.
-- **Stop Vercel Deployment**: The Vercel project is stopped daily at 20:00 UTC.
+- **Stop Vercel Deployment**: The Vercel project is stopped every weekday at 20:00 UTC.
 
 ### **Working Directories**
 
 Both pipelines use `working-directory` settings to ensure the correct project is deployed:
 
-- Frontend commands are executed in the `/frontend` directory.
-- Backend commands are executed in the `/backend` directory.
+- Frontend commands are executed in the `/agile-team-poker-frontend` directory.
+- Backend commands are executed in the `/agile-team-poker-backend` directory.
 
 ## **Project Structure**
 
 ```bash {"id":"01J9DYGCBPNKV2GZGX4PCBY3VH"}
 agile-team-poker/
-├── backend/                  # Express.js backend code
+├── agile-team-poker-backend/                  # Express.js backend code
 │   ├── package.json
 │   └── ...                   # Backend source files
-├── frontend/                 # React frontend code
+├── agile-team-poker-frontend/                 # React frontend code
 │   ├── package.json
 │   └── ...                   # Frontend source files
 ├── .github/                  # GitHub Actions pipeline configuration
