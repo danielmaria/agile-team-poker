@@ -10,9 +10,9 @@ jobs:
     environment: production
     steps:
       - name: Install Vercel CLI
-        working-directory: agile-team-poker-backend
+        working-directory: ./agile-team-poker-backend
         run: npm install -g vercel
 
       - name: Remove Vercel project
-        working-directory: agile-team-poker-backend
+        working-directory: ./agile-team-poker-backend
         run: vercel remove agile-team-poker-backend --token=${{ secrets.VERCEL_TOKEN }} -y
