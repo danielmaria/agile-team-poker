@@ -78,7 +78,7 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
       return;
     }
 
-    setIsLoading(true); // Start loader
+    setIsLoading(true);
     try {
       const response = await ApiService.createRoom(
         playerName,
@@ -178,14 +178,17 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
           {isOrganizer ? (
             <>
               <TextField
-                label="Name"
+                label="Player name"
+                required
                 fullWidth
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
                 margin="normal"
               />
               <TextField
-                label="Password"
+                required
+                label="Room password"
+                helperText="Temporary password"
                 fullWidth
                 type="password"
                 value={password}
@@ -221,13 +224,15 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
           ) : (
             <>
               <TextField
-                label="Name"
+                required
+                label="Player name"
                 fullWidth
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
                 margin="normal"
               />
               <TextField
+                required
                 label="Room Hash"
                 fullWidth
                 value={roomHash}
@@ -236,8 +241,10 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
               />
               {isOrganizerLogin && (
                 <TextField
-                  label="Password"
+                  required
+                  label="Room password"
                   type="password"
+                  helperText="Password used to create the room"
                   fullWidth
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
