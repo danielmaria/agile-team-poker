@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
+      - uses: actions/checkout@v2
+
       - name: Install Vercel CLI
         working-directory: ./agile-team-poker-backend
         run: npm install -g vercel
