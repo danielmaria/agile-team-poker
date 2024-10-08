@@ -42,7 +42,6 @@ In this monorepo, both the frontend and backend projects coexist under a single 
 - **Backend**:
    - Express.js for handling API requests
    - UUID for generating unique room identifiers
-   - Server-Sent Events (SSE) for real-time updates
    - Firebase for data storage
    - Vercel for deployment
 
