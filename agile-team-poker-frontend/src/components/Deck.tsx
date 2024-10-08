@@ -165,7 +165,7 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
                         xl: "auto",
                       },
                       border: "1px solid",
-                      borderColor: "black",
+                      borderColor: "#a18c8c",
                       borderRadius: "8px",
                       transition: "transform 0.3s, border-color 0.3s",
                       position: "relative",
@@ -224,7 +224,7 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
                         xl: "auto",
                       },
                       border: "1px solid",
-                      borderColor: "black",
+                      borderColor: "#a18c8c",
                       borderRadius: "8px",
                       transition: "transform 0.3s, border-color 0.3s",
                       position: "relative",
@@ -237,8 +237,9 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
                         selectedDirection === direction
                           ? "0px 0px 10px rgb(24 118 210 / 95%)"
                           : "none",
+
                       ...(selectedDirection === direction && {
-                        animation: "borderAnimation 2s linear infinite",
+                        animation: "borderAnimation 2s ease-in-out infinite",
                       }),
                     }}
                   >
