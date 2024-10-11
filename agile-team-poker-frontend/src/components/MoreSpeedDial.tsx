@@ -158,16 +158,17 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
             position: "absolute",
             top: {
               xs: !user ? 25 : 60,
+              sm: "auto",
             },
             left: {
               xs: 10,
-              xl: "auto",
+              sm: "auto",
             },
             bottom: {
-              xl: 60,
+              sm: 60,
             },
             right: {
-              xl: 60,
+              sm: 60,
             },
           }}
           icon={<SpeedDialIcon />}
