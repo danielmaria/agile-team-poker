@@ -180,7 +180,10 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
           direction={isMobile ? "down" : "up"}
         >
           {actions.map((action) => {
-            if (action.key === "report" && !user) {
+            if (
+              action.key === "report" &&
+              (!user || !events?.find((e) => e.type === "movement"))
+            ) {
               return null;
             }
 
