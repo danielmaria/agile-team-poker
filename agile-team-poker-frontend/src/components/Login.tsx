@@ -60,10 +60,12 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
-    newAlignment: string
+    newAlignment: string | null
   ) => {
-    setAlignment(newAlignment);
-    setIsOrganizer(!isOrganizer);
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
+      setIsOrganizer(newAlignment === "create-room");
+    }
   };
 
   const showSnackbar = (message: string, severity: "success" | "error") => {
