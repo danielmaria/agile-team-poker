@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Avatar, Typography, Grid } from "@mui/material";
+import { Box, Avatar, Typography, Grid, Badge, Tooltip } from "@mui/material";
 import { Subject } from "./Dashboard";
 import happyIcon from "../assets/cards/emotion-happy.png";
 import neutralIcon from "../assets/cards/emotion-neutral.png";
@@ -51,9 +51,14 @@ const PlayerEvents: React.FC<PlayerEventsProps> = ({
   events,
   currentSubject,
 }) => {
+  const [storedPlayer, setStoredPlayer] = useState<any>();
   const [players, setPlayers] = useState<{ [key: string]: Player }>({});
 
   useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setStoredPlayer(JSON.parse(storedUser));
+    }
     events.forEach((event) => {
       const { type, player, move, subjectId } = event;
       if (player) {
@@ -88,6 +93,10 @@ const PlayerEvents: React.FC<PlayerEventsProps> = ({
     });
   }, [events]);
 
+  if (storedPlayer === undefined) {
+    return null;
+  }
+
   return (
     <Grid container spacing={2}>
       {Object.values(players).map((player, index) => (
@@ -101,18 +110,29 @@ const PlayerEvents: React.FC<PlayerEventsProps> = ({
             }}
           >
             <Typography variant="h6">{player.name}</Typography>
-            <Avatar
-              alt={`Avatar of ${player.name}`}
-              src={getAvatarImage(player.avatar)}
-              sx={{ width: 80, height: 80, margin: "0 auto" }}
-            />
+            <Tooltip title="Already played">
+              <Badge
+                color="success"
+                badgeContent="✓"
+                overlap="circular"
+                invisible={!player.moves.length}
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              >
+                <Avatar
+                  alt={`Avatar of ${player.name}`}
+                  src={getAvatarImage(player.avatar)}
+                  sx={{ width: 80, height: 80, margin: "0 auto" }}
+                />
+              </Badge>
+            </Tooltip>
             <Box mt={2}>
-              {currentSubject?.closed && player.moves ? (
+              {player.name === storedPlayer?.playerName ||
+              (currentSubject?.closed && player.moves) ? (
                 <Box>
                   <Typography variant="body1">
                     {player.moves[0] &&
                     player.moves[1] &&
-                    player.subjectId === currentSubject.id ? (
+                    player.subjectId === currentSubject?.id ? (
                       <>
                         <img
                           src={
@@ -142,8 +162,8 @@ const PlayerEvents: React.FC<PlayerEventsProps> = ({
                       </>
                     ) : (
                       <Typography
-                        variant="body1"
-                        style={{
+                        variant="body2"
+                        sx={{
                           height: "4em",
                           alignContent: "space-around",
                         }}
