@@ -160,6 +160,7 @@ const PlayerEvents: React.FC<PlayerEventsProps> = ({
                       </>
                     ) : (
                       <Typography
+                        component="span"
                         variant="body2"
                         sx={{
                           height: "4em",
@@ -173,6 +174,7 @@ const PlayerEvents: React.FC<PlayerEventsProps> = ({
                 </Box>
               ) : (
                 <Typography
+                  component="span"
                   variant="body2"
                   sx={{
                     height: "4em",
