@@ -76,7 +76,7 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
 
   const handleCreateRoom = async () => {
     if (!playerName || !password || !avatar) {
-      showSnackbar("All fields are required", "error");
+      showSnackbar("Please fill in all fields and select an avatar", "error");
       return;
     }
 
@@ -197,7 +197,9 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 margin="normal"
               />
-              <Typography>Select Avatar</Typography>
+              <Typography pt={1} pb={2}>
+                Select Avatar
+              </Typography>
               <Grid container spacing={2} justifyContent="center">
                 {avatarOptions.map((avatarKey, index) => (
                   <Grid item key={index}>
@@ -263,7 +265,9 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
                 label="I'm the room organizer"
               />
 
-              <Typography>Select Avatar</Typography>
+              <Typography pt={1} pb={2}>
+                Select Avatar
+              </Typography>
               <Grid container spacing={2} justifyContent="center">
                 {avatarOptions.map((avatarKey, index) => (
                   <Grid item key={index}>

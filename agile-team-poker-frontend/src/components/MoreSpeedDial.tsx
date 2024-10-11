@@ -23,6 +23,7 @@ import { EventData } from "./PlayerEvents";
 import step1Image from "../assets/help/step1.png";
 import step2Image from "../assets/help/step2.png";
 import step3Image from "../assets/help/step3.png";
+import step4Image from "../assets/help/step4.png";
 import step6Image from "../assets/help/step6.png";
 
 const actions = [
@@ -128,6 +129,7 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
         "Players will submit new cards for the reopened session, if they want, following the same process as before.",
         "Only the last move of each player will be taken into account.",
       ],
+      image: step4Image,
     },
     {
       title: "Step 5: Leaving and Rejoining the Room",
@@ -205,7 +207,6 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
         keepMounted
         onClose={handleCloseCoffee}
       >
-        <DialogTitle>{"Thank you for your support!"}</DialogTitle>
         <DialogContent>
           <iframe
             id="kofiframe"
