@@ -103,8 +103,6 @@ const PlayerEvents: React.FC<PlayerEventsProps> = ({
         <Grid item key={index} xs={12} sm={6} md={4}>
           <Box
             sx={{
-              border: "1px solid #ccc",
-              borderRadius: 2,
               padding: 2,
               textAlign: "center",
             }}
