@@ -33,6 +33,7 @@ In this monorepo, both the frontend and backend projects coexist under a single 
 ## **Technologies**
 
 - **Frontend**:
+
    - React.js for building the user interface
    - Material-UI for UI components
    - React Router for navigation
@@ -40,6 +41,7 @@ In this monorepo, both the frontend and backend projects coexist under a single 
    - Surge for deployment
 
 - **Backend**:
+
    - Express.js for handling API requests
    - UUID for generating unique room identifiers
    - Firebase for data storage
@@ -59,7 +61,7 @@ To install and run both projects locally, follow these steps:
 1. Clone the repository:
 
 ```bash {"id":"01J9DYGCBPNKV2GZGX4F82MJTQ"}
-git clone https://github.com/your-username/agile-team-poker-monorepo.git
+git clone https://github.com/danielmaria/agile-team-poker-monorepo.git
 cd agile-team-poker-monorepo
 ```
 

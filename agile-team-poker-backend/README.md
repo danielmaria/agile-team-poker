@@ -33,7 +33,7 @@ This is the backend for Agile Team Poker Online, a web-based application for agi
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/your-username/agile-team-poker-backend.git
+git clone https://github.com/danielmaria/agile-team-poker.git
 cd agile-team-poker-backend
 ```
 
