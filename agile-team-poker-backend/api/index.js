@@ -124,7 +124,6 @@ app.post("/api/v1/rooms/:roomHash/players", async (req, res) => {
 
   const joinEvent = { type: "player", player, timestamp: Date.now() };
   await storeEvent(roomHash, joinEvent);
-  // await broadcastToRoom(roomHash, joinEvent);
 
   res.status(200).json({ message: "Joined room successfully" });
 });
@@ -166,7 +165,6 @@ app.post("/api/v1/rooms/:roomHash/rounds", async (req, res) => {
     timestamp: Date.now(),
   };
   await storeEvent(roomHash, roundEvent);
-  // await broadcastToRoom(roomHash, roundEvent);
 
   res.json({ message: `Round ${subjectId} started` });
 });
@@ -216,7 +214,6 @@ app.post(
     };
 
     await storeEvent(roomHash, moveEvent);
-    // await broadcastToRoom(roomHash, moveEvent);
 
     res.json({ message: "Move recorded", move });
   }
@@ -258,7 +255,6 @@ app.patch("/api/v1/rooms/:roomHash/rounds/:subjectId", async (req, res) => {
 
   const roundEvent = { type: "round-closed", round, timestamp: Date.now() };
   await storeEvent(roomHash, roundEvent);
-  // await broadcastToRoom(roomHash, roundEvent);
 
   res.json({ message: `Round ${subjectId} has been closed` });
 });

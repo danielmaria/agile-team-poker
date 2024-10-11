@@ -199,7 +199,10 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <Typography variant="h6">
+                <Typography
+                  variant="h6"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
                   {(highestFuture === "down" ||
                     (highestFuture === "neutral" &&
                       highestFuture === "neutral")) && (

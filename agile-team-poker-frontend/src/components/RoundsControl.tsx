@@ -123,8 +123,8 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
                   alignItems="flex-start"
                   justifyContent="space-between"
                   flexDirection={{
-                    xs: "column", // Em dispositivos móveis, o botão ficará abaixo do texto
-                    sm: "row", // Em telas maiores, o botão ficará ao lado do texto
+                    xs: "column",
+                    sm: "row",
                   }}
                 >
                   <Typography
@@ -132,11 +132,11 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
                       whiteSpace: "normal",
                       wordBreak: "break-word",
                       maxWidth: {
-                        xs: "100%", // Em dispositivos móveis, o texto ocupará toda a largura
-                        sm: "70%", // Em telas maiores, limitar a largura do texto a 70%
+                        xs: "100%",
+                        sm: "70%",
                       },
                       textAlign: "left",
-                      mb: { xs: 2, sm: 0 }, // Margem inferior para separar o botão em telas pequenas
+                      mb: { xs: 2, sm: 0 },
                     }}
                   >
                     {subject.id}. {subject.name}
@@ -160,9 +160,11 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
                     }
                     onClick={() => handleStartRound(subject.id)}
                   >
-                    {currentSubject &&
-                    currentSubject.id === subject.id &&
-                    !currentSubject.closed
+                    {roundsClosed.includes(subject.id)
+                      ? "Restart"
+                      : currentSubject &&
+                        currentSubject.id === subject.id &&
+                        !currentSubject.closed
                       ? "Close"
                       : "Start"}
                   </Button>
