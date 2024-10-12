@@ -115,6 +115,11 @@ const PlayerEvents: React.FC<PlayerEventsProps> = ({
                 overlap="circular"
                 invisible={!player.moves.length}
                 anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                sx={{
+                  ".MuiBadge-badge": {
+                    zIndex: "auto",
+                  },
+                }}
               >
                 <Avatar
                   alt={`Avatar of ${player.name}`}

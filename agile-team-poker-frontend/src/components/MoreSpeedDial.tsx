@@ -172,6 +172,10 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
             right: {
               sm: 60,
             },
+            zIndex: 5,
+            "& .MuiSpeedDial-actions": {
+              zIndex: 10,
+            },
           }}
           icon={<SpeedDialIcon />}
           onClose={handleCloseSpeedDial}
@@ -195,6 +199,7 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
                 sx={{
                   whiteSpace: "nowrap",
                   maxWidth: "none",
+                  zIndex: 15,
                 }}
                 tooltipOpen
                 onClick={() => handleActionClick(action.key)}

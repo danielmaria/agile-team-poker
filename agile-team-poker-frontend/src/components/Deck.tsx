@@ -110,7 +110,8 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
             xl: "23%",
           },
           textAlign: "center",
-          zIndex: 1,
+          zIndex: isExpanded ? "2000 !important" : "1 !important",
+          position: "relative !important",
           transition: "bottom 0.3s",
         }}
       >
@@ -136,6 +137,8 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
                 xl: "46vh",
               },
               overflowY: "auto",
+              position: "relative",
+              zIndex: 2100,
             }}
           >
             <Typography mb={2}>Your current feeling</Typography>
