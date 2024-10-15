@@ -16,7 +16,6 @@ import {
   SpeedDial,
   SpeedDialAction,
   SpeedDialIcon,
-  useTheme,
 } from "@mui/material";
 import { EventData } from "./PlayerEvents";
 import step1Image from "../assets/help/step1.png";
@@ -100,7 +99,6 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
     setInfoPage(0);
   };
 
-  const theme = useTheme();
   const isMobile = windowWidth < 900;
 
   const infoPages = [
