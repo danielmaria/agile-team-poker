@@ -56,7 +56,7 @@ const SubjectInfoButton: React.FC<SubjectInfoButtonProps> = ({ subjectId }) => {
     1: {
       name: "The team's delivery planning is organized at an ideal frequency.",
       description:
-        "The team holds regular planning sessions to organize their deliveries. They adjusted the frequency of their planning meetings to a good frequency, improving predictability and reducing rework caused by frequent scope changes.",
+        "The team has established a good frequency for their planning meetings, ensuring a balance between preparation and adaptability. This helps maintain a steady delivery pace while minimizing last-minute changes.",
       imageUrl: subject1,
       area: "Planning",
     },
@@ -77,119 +77,119 @@ const SubjectInfoButton: React.FC<SubjectInfoButtonProps> = ({ subjectId }) => {
     4: {
       name: "There is great collaboration and communication between the team and the customer, and vice versa.",
       description:
-        "Open communication with the client helped avoid misunderstandings in feature requirements, allowing the team to quickly resolve issues and maintain progress.",
+        "The team maintains open lines of communication with the customer, which ensures that expectations are clear and any misunderstandings are addressed promptly.",
       imageUrl: subject4,
       area: "Collaboration",
     },
     5: {
       name: "The team can respond to changes whenever necessary, adapting quickly.",
       description:
-        "When priorities changed, the team quickly adapted their backlog to focus on high-priority items, showing agility without disrupting workflow.",
+        "The team is flexible and adapts quickly to changing priorities, adjusting their focus to deliver high-value items without causing disruption.",
       imageUrl: subject5,
       area: "Adaptability",
     },
     6: {
       name: "The team's activities are clear.",
       description:
-        "All stakeholders can easily track progress using a well-maintained Kanban board, ensuring transparency throughout the project.",
+        "The team keeps their tasks visible and well-organized, using tools like Kanban boards to provide transparency on progress for all stakeholders.",
       imageUrl: subject6,
       area: "Transparency",
     },
     7: {
       name: "The roles of team members are well defined.",
       description:
-        "Clearly defined roles, such as developer, tester, and scrum master, ensure collaboration without overlaps, facilitating smooth workflows.",
+        "Clear role definitions ensure that each team member knows their responsibilities, reducing overlap and fostering effective collaboration.",
       imageUrl: subject7,
       area: "Roles",
     },
     8: {
       name: "The team seeks simplicity in solutions.",
       description:
-        "Instead of over-engineering, the team focuses on simple, maintainable solutions. Recently, they opted for a basic algorithm that fulfilled the project requirements, avoiding unnecessary complexity.",
+        "The team values simplicity in their approach to problem-solving, focusing on creating maintainable and effective solutions without unnecessary complexity.",
       imageUrl: subject8,
       area: "Simplicity",
     },
     9: {
       name: "There is learning and knowledge exchange within the team.",
       description:
-        "Regular knowledge-sharing sessions promote continuous learning. Recently, a developer introduced a new testing tool, which was adopted by the entire team.",
+        "The team actively engages in knowledge-sharing, fostering continuous learning and improvement through discussions, workshops, and peer reviews.",
       imageUrl: subject9,
       area: "Learning",
     },
     10: {
       name: "The team has adequate tools and infrastructure.",
       description:
-        "The team utilizes modern development tools to automate their CI/CD pipelines, speeding up deployments and minimizing downtime.",
+        "The team uses modern and effective tools to support their workflow, ensuring efficient processes and minimizing manual overhead.",
       imageUrl: subject10,
       area: "Infrastructure",
     },
     11: {
       name: "There is excellent communication between team members.",
       description:
-        "Daily stand-ups and asynchronous communication ensure team alignment. This open communication resolved a critical blocker that had been delaying progress.",
+        "Frequent and open communication between team members ensures alignment and quick resolution of issues, contributing to smooth collaboration.",
       imageUrl: subject11,
       area: "Collaboration",
     },
     12: {
       name: "The work process is continuously improving.",
       description:
-        "Through regular retrospectives, the team identified bottlenecks in their testing phase and invested in automation, speeding up deliveries.",
+        "The team regularly reflects on their processes and makes improvements to enhance efficiency, reduce waste, and optimize workflows.",
       imageUrl: subject12,
       area: "Process Improvement",
     },
     13: {
       name: "The team has good self-organization.",
       description:
-        "The team manages tasks autonomously, recently reorganizing their workflow to align better with the product roadmap.",
+        "The team is self-organizing, managing their tasks autonomously to stay aligned with goals and timelines, demonstrating responsibility and initiative.",
       imageUrl: subject13,
       area: "Autonomy",
     },
     14: {
       name: "There is good synergy between team members.",
       description:
-        "Strong collaboration was evident when a developer and tester worked closely to resolve a critical issue during a sprint, highlighting the team's synergy.",
+        "The team members collaborate effectively, leveraging each other's strengths to overcome challenges and deliver high-quality work.",
       imageUrl: subject14,
       area: "Collaboration",
     },
     15: {
       name: "The team has a sustainable work pace.",
       description:
-        "After noticing signs of burnout, the team adjusted their workload, maintaining a sustainable pace to ensure long-term team health.",
+        "The team monitors their workload and adjusts it to maintain a sustainable pace, ensuring consistent productivity without risking burnout.",
       imageUrl: subject15,
       area: "Well-being",
     },
     16: {
       name: "The team has management support.",
       description:
-        "Management provides the team with necessary resources. When the team requested additional training, it was approved quickly.",
+        "The team receives strong support from management, with resources and decisions that enable them to work effectively and meet their goals.",
       imageUrl: subject16,
       area: "Support",
     },
     17: {
       name: "The team has a safe environment to discuss ideas and make improvements.",
       description:
-        "Open discussions in retrospectives help the team feel comfortable sharing suggestions. Recently, they improved their code review process based on feedback.",
+        "The team fosters an environment of trust, where members feel comfortable sharing feedback and suggestions to drive continuous improvement.",
       imageUrl: subject17,
       area: "Team Culture",
     },
     18: {
       name: "The team has sufficient technical knowledge to do the required work.",
       description:
-        "The team's technical skills allowed them to solve complex architectural challenges, ensuring scalable solutions.",
+        "The team's technical expertise allows them to address complex challenges and implement scalable, high-quality solutions.",
       imageUrl: subject18,
       area: "Skills",
     },
     19: {
       name: "The team has sufficient business knowledge to do the required work.",
       description:
-        "Their understanding of the business domain helped the team suggest a feature that added significant value to customers.",
+        "The team's understanding of the business domain enables them to contribute meaningfully to business objectives, aligning their work with key goals.",
       imageUrl: subject19,
       area: "Business",
     },
     20: {
       name: "Team members seek multidisciplinary skills, with each specialist learning about related areas.",
       description:
-        "Cross-functional training helped developers learn testing practices, improving agility and reducing dependencies within the team.",
+        "The team encourages cross-disciplinary learning, allowing members to develop skills beyond their core expertise, enhancing collaboration and reducing dependencies.",
       imageUrl: subject20,
       area: "Skills",
     },
