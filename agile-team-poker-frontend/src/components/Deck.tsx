@@ -108,7 +108,7 @@ const Deck: React.FC<DeckProps> = ({ user, currentSubject, showSnackbar }) => {
           width: {
             xs: "50%",
             md: "40%",
-            xl: "23%",
+            xl: "30%",
           },
           textAlign: "center",
           zIndex: isExpanded ? "2000 !important" : "1 !important",

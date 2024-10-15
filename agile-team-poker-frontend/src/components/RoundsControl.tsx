@@ -71,6 +71,11 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
     }
   };
 
+  const orderedSubjects =
+    currentSubject && !currentSubject.closed
+      ? [currentSubject, ...subjects!.filter((s) => s.id !== currentSubject.id)]
+      : subjects;
+
   return (
     <>
       <Backdrop
@@ -85,7 +90,7 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
           width: {
             xs: "50%",
             md: "40%",
-            xl: "23%",
+            xl: "30%",
           },
           textAlign: "center",
           transition: "bottom 0.3s",
@@ -115,8 +120,8 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
               overflowY: "auto",
             }}
           >
-            {subjects ? (
-              subjects.map((subject) => (
+            {orderedSubjects ? (
+              orderedSubjects.map((subject) => (
                 <Box
                   key={subject.id}
                   p={2}
@@ -151,22 +156,22 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
                         : "contained"
                     }
                     color={
-                      roundsClosed.includes(subject.id)
-                        ? "inherit"
-                        : currentSubject &&
-                          currentSubject.id === subject.id &&
-                          !currentSubject.closed
+                      currentSubject &&
+                      currentSubject.id === subject.id &&
+                      !currentSubject.closed
                         ? "error"
+                        : roundsClosed.includes(subject.id)
+                        ? "inherit"
                         : "primary"
                     }
                     onClick={() => handleStartRound(subject.id)}
                   >
-                    {roundsClosed.includes(subject.id)
-                      ? "Restart"
-                      : currentSubject &&
-                        currentSubject.id === subject.id &&
-                        !currentSubject.closed
+                    {currentSubject &&
+                    currentSubject.id === subject.id &&
+                    !currentSubject.closed
                       ? "Close"
+                      : roundsClosed.includes(subject.id)
+                      ? "Restart"
                       : "Start"}
                   </Button>
                 </Box>
