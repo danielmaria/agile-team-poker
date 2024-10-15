@@ -2,7 +2,7 @@ import CoffeeIcon from "@mui/icons-material/Coffee";
 import InfoIcon from "@mui/icons-material/Info";
 import PrintIcon from "@mui/icons-material/Print";
 import ReportGenerator from "./ReportGenerator";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Backdrop,
   Box,
@@ -16,7 +16,6 @@ import {
   SpeedDial,
   SpeedDialAction,
   SpeedDialIcon,
-  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { EventData } from "./PlayerEvents";
@@ -52,6 +51,20 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
   roomHash,
   events,
 }) => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const [openSpeedDial, setOpenSpeedDial] = useState(false);
   const [openCoffee, setOpenCoffee] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
@@ -88,7 +101,7 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
   };
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = windowWidth < 900;
 
   const infoPages = [
     {
@@ -153,26 +166,31 @@ const MoreSpeedDial: React.FC<MoreSpeedDialProps> = ({
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <Backdrop open={openSpeedDial} />
+        <Backdrop
+          open={openSpeedDial}
+          sx={{
+            zIndex: (theme) => theme.zIndex.speedDial + 1,
+          }}
+        />
         <SpeedDial
           ariaLabel="SpeedDial tooltip"
           sx={{
             position: "absolute",
             top: {
-              xs: !user ? 25 : 60,
-              sm: "auto",
+              xs: 65,
+              md: "auto",
             },
             left: {
               xs: 10,
-              sm: "auto",
+              md: "auto",
             },
             bottom: {
-              sm: 60,
+              md: 50,
             },
             right: {
-              sm: 60,
+              md: 30,
             },
-            zIndex: 5,
+            zIndex: (theme) => theme.zIndex.appBar + 1, // Definindo o zIndex para aparecer acima de outros componentes
             "& .MuiSpeedDial-actions": {
               zIndex: 10,
             },

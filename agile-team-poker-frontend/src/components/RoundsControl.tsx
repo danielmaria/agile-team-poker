@@ -84,6 +84,7 @@ const RoundsControl: React.FC<RoundsControlProps> = ({
           bottom: 0,
           width: {
             xs: "50%",
+            md: "40%",
             xl: "23%",
           },
           textAlign: "center",
